@@ -1,7 +1,9 @@
-﻿using BusinessApp.Core.ApplicationSerivce;
-using BusinessApp.Core.ApplicationSerivce.Service;
+﻿using BusinessApp.Core.ApplicationService;
+using BusinessApp.Core.ApplicationService.IService;
+using BusinessApp.Core.ApplicationService.Service;
+using BusinessApp.Core.ApplicationService.ServiceSetting;
 using BusinessApp.Core.DomainService.AccountRepository;
-using BusinessApp.Core.Entitiy.Users;
+using BusinessApp.Core.Entity.Users;
 using BusinessApp.Infrastructure;
 using BusinessApp.Infrastructure.Data.DomainRepository;
 using Microsoft.AspNetCore.Builder;
@@ -12,15 +14,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Hosting;
 
 namespace HeroCare
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public IHostingEnvironment Env { get; }
-        public Startup(IHostingEnvironment env)
+        public IWebHostEnvironment Env { get; }
+        public Startup(IWebHostEnvironment env)
         {
             Env = env;
             var builder = new ConfigurationBuilder()
@@ -35,8 +37,20 @@ namespace HeroCare
         public void ConfigureServices(IServiceCollection services)
         {
             //
-            services.AddDbContext<HeroCareCoreContext>(options =>
-                 options.UseSqlServer(Configuration.GetConnectionString("HeroCareCoreContext")));
+            services.AddDbContext<HeroCareCoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("HeroCareCoreContext")));
+            //
+            services.AddIdentity<User, Role>(options =>
+            {
+                options.Password.RequiredLength = 5;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.SignIn.RequireConfirmedEmail = true;
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<HeroCareCoreContext>().AddDefaultTokenProviders();
+            //
+            services.Configure<EmailSenderOptions>(Configuration.GetSection("EmailSettings"));
             //
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -45,29 +59,24 @@ namespace HeroCare
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             //
-            services.AddIdentity<User, Role>(options =>
+            services.Configure<MvcOptions>(options =>
             {
-                options.Password.RequiredLength = 5;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireDigit = true;
-            })
-            .AddEntityFrameworkStores<HeroCareCoreContext>()
-            .AddDefaultTokenProviders();
-
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
             //
-            services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             //
             //services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             //
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IRegisterService, RegisterService>();
+            services.AddTransient<IEmailService, EmailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors();
             app.UseAuthentication();

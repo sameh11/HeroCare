@@ -1,4 +1,4 @@
-﻿using BusinessApp.Core.Entitiy.Users;
+﻿using BusinessApp.Core.Entity.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

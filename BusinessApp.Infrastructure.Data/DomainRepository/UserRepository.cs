@@ -1,6 +1,6 @@
 ﻿//using System.Threading.Tasks;
 using BusinessApp.Core.DomainService.AccountRepository;
-using BusinessApp.Core.Entitiy.Users;
+using BusinessApp.Core.Entity.Users;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;

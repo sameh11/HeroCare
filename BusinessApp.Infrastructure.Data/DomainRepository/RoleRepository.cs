@@ -1,5 +1,5 @@
 ﻿using BusinessApp.Core.DomainService.AccountRepository;
-using BusinessApp.Core.Entitiy.Users;
+using BusinessApp.Core.Entity.Users;
 using System;
 using System.Collections.Generic;
 

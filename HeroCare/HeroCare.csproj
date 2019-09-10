@@ -7,6 +7,8 @@
 
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
@@ -36,17 +38,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="SendGrid" Version="9.12.0" />
     <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <Folder Include="Controllers\Account\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <ProjectReference Include="..\BusinessApp.Core.Entitiy\BusinessApp.Core.Entitiy.csproj" />
+    <ProjectReference Include="..\BusinessApp.Core.Entitiy\BusinessApp.Core.Entity.csproj" />
     <ProjectReference Include="..\BusinessApp.Core\BusinessApp.Core.csproj" />
     <ProjectReference Include="..\BusinessApp.Infrastructure.Data\BusinessApp.Infrastructure.Data.csproj" />
   </ItemGroup>
