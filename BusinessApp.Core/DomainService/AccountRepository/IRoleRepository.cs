@@ -1,4 +1,4 @@
-﻿using BusinessApp.Core.Entitiy.Users;
+﻿using BusinessApp.Core.Entity.Users;
 using System.Collections.Generic;
 
 namespace BusinessApp.Core.DomainService.AccountRepository

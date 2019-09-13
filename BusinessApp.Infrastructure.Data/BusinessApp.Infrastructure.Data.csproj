@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BusinessApp.Core.Entitiy\BusinessApp.Core.Entitiy.csproj" />
+    <ProjectReference Include="..\BusinessApp.Core.Entitiy\BusinessApp.Core.Entity.csproj" />
     <ProjectReference Include="..\BusinessApp.Core\BusinessApp.Core.csproj" />
   </ItemGroup>
 

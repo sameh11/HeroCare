@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace BusinessApp.Core.Entitiy.Users
+namespace BusinessApp.Core.Entity.Users
 {
     public class User : IdentityUser
     {
@@ -9,7 +9,6 @@ namespace BusinessApp.Core.Entitiy.Users
         //public string Email { get; set; }
         //public string PasswordHash { get; set; }
         //public Role Role { get; set; }
-
-        public bool RememberMe { get; set; }
+        //public bool RememberMe { get; set; }
     }
 }

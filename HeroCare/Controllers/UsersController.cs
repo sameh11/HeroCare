@@ -1,5 +1,5 @@
 ﻿using BusinessApp.Core.DomainService.AccountRepository;
-using BusinessApp.Core.Entitiy.Users;
+using BusinessApp.Core.Entity.Users;
 using BusinessApp.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +35,7 @@ namespace HeroCare.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<User>> GetUser(string id)
         {
             var _user = await Repo.GetById(id);
             if (_user == null)

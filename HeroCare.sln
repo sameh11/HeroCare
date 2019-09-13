@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29209.152
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroCare", "HeroCare\HeroCare.csproj", "{AF98EA3B-1393-4048-BF4A-AE9DA504DB48}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessApp.Core.Entitiy", "BusinessApp.Core.Entitiy\BusinessApp.Core.Entitiy.csproj", "{031F3BF8-3603-42F7-AF31-4D629415456D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessApp.Core.Entity", "BusinessApp.Core.Entitiy\BusinessApp.Core.Entity.csproj", "{031F3BF8-3603-42F7-AF31-4D629415456D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessApp.Core", "BusinessApp.Core\BusinessApp.Core.csproj", "{EC905AC4-23A6-40C3-AD35-CA10039C4777}"
 	ProjectSection(ProjectDependencies) = postProject
