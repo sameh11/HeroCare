@@ -1,9 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using System.Web;
 using BusinessApp.Core.ApplicationService;
 using BusinessApp.Core.ApplicationService.IService;
+using BusinessApp.Core.DomainService.AccountRepository;
 using BusinessApp.Core.Entity.Users;
 using HeroCare.Dto;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HeroCare.Controllers.Account
@@ -14,10 +18,14 @@ namespace HeroCare.Controllers.Account
     public class RegistrationController: ControllerBase
     {
         private readonly IRegisterService _registerService;
+        private readonly IUserRepository _userRepository;
+        private readonly UserManager<User> _userManager;
 
-        public RegistrationController(IRegisterService registerService)
+        public RegistrationController(IRegisterService registerService, IUserRepository userRepository, UserManager<User> userManager)
         {
             _registerService = registerService;
+            _userRepository = userRepository;
+            _userManager = userManager; 
         }
 
         [HttpPost]
@@ -31,13 +39,22 @@ namespace HeroCare.Controllers.Account
             if (ModelState.IsValid)
             {
                 object res = await _registerService.Register(user).ConfigureAwait(true);
-                return res; 
+                return  res; 
             }
-            // If we got this far, something failed, redisplay form
             return BadRequest("something went wrong");
         }
 
-       
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<object> ConfirmEmail(string Id= "",string confirmCode = "")
+        {
+            if (string.IsNullOrWhiteSpace(Id) || string.IsNullOrWhiteSpace(confirmCode))
+            {
+                ModelState.AddModelError("", "User Id and Code are required");
+                return BadRequest(ModelState);
+            }
+            return await _registerService.ConfirmEmail(Id, confirmCode).ConfigureAwait(true);
+        }
         //Task<IActionResult> ResetPassword(User user);
         //Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model);
 

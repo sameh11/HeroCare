@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BusinessApp.Core.ApplicationService.ServiceSetting
 {
-    public class EmailSenderOptions
+    public class SendGridOptions
     {
         public string SendGridUser { get; set; }
         public string SendGridKey { get; set; }

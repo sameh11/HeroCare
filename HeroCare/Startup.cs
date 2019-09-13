@@ -15,6 +15,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
+using System.Linq;
+using System.Net.Http.Formatting;
+using System.Web.Http;
 
 namespace HeroCare
 {
@@ -50,7 +54,7 @@ namespace HeroCare
                 options.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<HeroCareCoreContext>().AddDefaultTokenProviders();
             //
-            services.Configure<EmailSenderOptions>(Configuration.GetSection("EmailSettings"));
+            services.Configure<SendGridOptions>(Configuration.GetSection("SendGridOptions"));
             //
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -78,8 +82,10 @@ namespace HeroCare
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors();
-            app.UseAuthentication();
+            //app.UseCors();
+            //app.UseAuthentication();
+            //app.CreatePerOwinContext(ApplicationDbContext.Create);
+            //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
             if (env.IsDevelopment())
             {
@@ -93,7 +99,16 @@ namespace HeroCare
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseMvc();
+            app.UseAuthorization();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "api",
+                    //template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Users}/{action=GetUser}/{id?}");
+            });
+
+
         }
     }
 }

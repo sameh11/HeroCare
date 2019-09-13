@@ -11,7 +11,7 @@ namespace BusinessApp.Core.DomainService.AccountRepository
     public interface IUserRepository
     {
         Task<IEnumerable<User>> GetAll();
-        Task<User> GetById(int id);
+        Task<User> GetById(string id);
         Task<User> CreateUser(User user);
         Task<User> UpdateUser(string id, User user);
         Task<User> DeleteUser(string id);

@@ -21,7 +21,7 @@ namespace BusinessApp.Infrastructure.Data.DomainRepository
             return await _context.User.ToListAsync().ConfigureAwait(true);
         }
 
-        public async Task<User> GetById(int id)
+        public async Task<User> GetById(string id)
         {
             var _user = await _context.User.FindAsync(id).ConfigureAwait(true);
 
