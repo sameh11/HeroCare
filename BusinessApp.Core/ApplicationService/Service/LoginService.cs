@@ -14,20 +14,31 @@ namespace BusinessApp.Core.ApplicationService.Service
         //private readonly IUserRepository _userRepository;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly ITokenManagerService _tokenManagerService;
         //private readonly ILogger _logger;
-        public LoginService(UserManager<User> userManager, SignInManager<User> signInManager)
+        public LoginService(UserManager<User> userManager, SignInManager<User> signInManager,ITokenManagerService tokenManagerService)
         {
             //_userRepository = userRepository;
             _userManager = userManager;
             _signInManager = signInManager;
+            _tokenManagerService = tokenManagerService;
             //logger = _logger;
         }
 
         public async Task<object> Login(User user)
         {
-            //User _user = new User {UserName = user.UserName, Email= user.Email };
-            var result = await _signInManager.PasswordSignInAsync(user, user.PasswordHash, isPersistent: false, lockoutOnFailure: false).ConfigureAwait(true);
-            return result;
+            User signedUser = await _userManager.FindByEmailAsync(user.Email).ConfigureAwait(true);
+            if (signedUser != null)
+            {
+                var result = await _signInManager.PasswordSignInAsync(signedUser.UserName, user.PasswordHash, isPersistent: false, lockoutOnFailure: false).ConfigureAwait(true);
+                if (result.Succeeded)
+                {
+                    var token = _tokenManagerService.GenerateJwtToken(signedUser);
+                    return new { token = token};
+                }
+                 return result; 
+            }
+            return ("ops something went wrong"); 
         }
 
         public async void LogOff()

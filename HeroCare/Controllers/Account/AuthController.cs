@@ -24,13 +24,10 @@ namespace HeroCare.Controllers.Account
         [HttpPost]
         [AllowAnonymous]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginDto loginDto)
+        public async Task<object> Login(LoginDto loginDto)
         {
             var user = new User { Email = loginDto.Email, PasswordHash = loginDto.Password };
-            if (ModelState.IsValid)
-            {
-                await _loginService.Login(user).ConfigureAwait(true);
-            }
+            if (ModelState.IsValid)return await _loginService.Login(user).ConfigureAwait(true);
             return BadRequest("hell now something went wrong");
         }
 
