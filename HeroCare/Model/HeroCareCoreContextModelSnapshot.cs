@@ -19,7 +19,7 @@ namespace BusinessApp.Infrastructure.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("BusinessApp.Core.Entity.Users.User", b =>
+            modelBuilder.Entity("BusinessApp.Core.Entitiy.Users.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -185,7 +185,7 @@ namespace BusinessApp.Infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BusinessApp.Core.Entity.Users.Role", b =>
+            modelBuilder.Entity("BusinessApp.Core.Entitiy.Users.Role", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
 
@@ -202,7 +202,7 @@ namespace BusinessApp.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("BusinessApp.Core.Entity.Users.User")
+                    b.HasOne("BusinessApp.Core.Entitiy.Users.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -210,7 +210,7 @@ namespace BusinessApp.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("BusinessApp.Core.Entity.Users.User")
+                    b.HasOne("BusinessApp.Core.Entitiy.Users.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -223,7 +223,7 @@ namespace BusinessApp.Infrastructure.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BusinessApp.Core.Entity.Users.User")
+                    b.HasOne("BusinessApp.Core.Entitiy.Users.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -231,7 +231,7 @@ namespace BusinessApp.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("BusinessApp.Core.Entity.Users.User")
+                    b.HasOne("BusinessApp.Core.Entitiy.Users.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

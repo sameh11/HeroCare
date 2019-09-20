@@ -4,14 +4,16 @@ using BusinessApp.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BusinessApp.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(HeroCareCoreContext))]
-    partial class HeroCareCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20190918190043_HeroCareDBMigration")]
+    partial class HeroCareDBMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
