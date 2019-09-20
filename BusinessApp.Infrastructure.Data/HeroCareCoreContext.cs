@@ -11,10 +11,8 @@ namespace BusinessApp.Infrastructure
             : base(options)
         {
         }
-
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Role> Role { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");

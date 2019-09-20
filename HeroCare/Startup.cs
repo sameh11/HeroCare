@@ -74,7 +74,7 @@ namespace HeroCare
                 options.SignIn.RequireConfirmedEmail = true;
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedEmail = true;
-            }).AddEntityFrameworkStores<HeroCareCoreContext>().AddDefaultTokenProviders();
+            }).AddRoles<Role>().AddEntityFrameworkStores<HeroCareCoreContext>().AddDefaultTokenProviders();
             //Jwt Configuration 
             services.AddAuthentication(option => 
             {
@@ -100,6 +100,7 @@ namespace HeroCare
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IRegisterService, RegisterService>();
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, UserClaimsPrincipalFactory<User, Role>>();
             services.AddTransient<ITokenManagerService , TokenManagerService>();
             services.AddTransient<IEmailService, EmailService>();
 
